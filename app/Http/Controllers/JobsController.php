@@ -39,7 +39,7 @@ class JobsController extends Controller
         return response()->json($job, 201);
     }
         
-    public function update(Request $request, $id)
+    public function update($id ,Request $request)
     {
         $job = Job::find($id);
         $data = $request->all();
@@ -62,7 +62,7 @@ class JobsController extends Controller
             'type'   => 'integer'
         ]);
 
-        if ($validator->fail()) {
+        if($validator->fails()) {                        
             return response()->json( [
                 'message' => 'Validation Failed',
                 'errors'  => $validator->errors()->all()
@@ -78,8 +78,8 @@ class JobsController extends Controller
     public function index()
     {
         $jobs = Job::with('company')
-        ->where('company_id', 10)
         ->get();
+
         return response()->json($jobs);
     }    
 
@@ -113,5 +113,7 @@ class JobsController extends Controller
         }
 
         $job->delete();
+
+        return response()->json('Job successfuly deleted.');
     }           
 }

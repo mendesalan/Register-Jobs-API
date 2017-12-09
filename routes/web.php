@@ -22,6 +22,7 @@ Route::group(array('prefix' => 'api'), function() {
 
 	Route::post('auth/login', 'AuthController@authenticate');
 	
+	// Company Routes
 	Route::group(array('prefix' => 'companies'), function() {
 		Route::get('/', 'CompaniesController@index');				
 		Route::get('/{id}', 'CompaniesController@show');
@@ -30,6 +31,7 @@ Route::group(array('prefix' => 'api'), function() {
 		Route::delete('/delete/{id}', 'CompaniesController@destroy');
 	});
 
+	// Job Routes
 	Route::group(array('prefix' => 'jobs'), function() {
 		Route::get('/', 'JobsController@index');
 		Route::get('/{id}', 'JobsController@show');

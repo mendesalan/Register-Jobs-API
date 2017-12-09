@@ -48,6 +48,12 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        if ( $exception ) {
+            return response()->json([
+                'description' => 'Invalid URI',
+                'messages' => []
+            ], 404);
+        }
         return parent::render($request, $exception);
     }
 }
