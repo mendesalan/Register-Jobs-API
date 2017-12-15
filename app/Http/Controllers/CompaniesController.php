@@ -3,14 +3,17 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Contracts\Config\Repository;
 use App\Models\Company;
+use App\Events\UserWasBanned;
 use Validator;
 use Hash;
+use App\Http\Controllers\Route;
 
 class CompaniesController extends Controller
 {
     public function __construct() {
-        $this->middleware('jwt.auth', ['except' => ['index', 'show', 'store']]);
+        $this->middleware('jwt.auth', ['except' => ['index', 'show', 'event']]);
     }
 
     public function store(Request $request)
@@ -88,17 +91,16 @@ class CompaniesController extends Controller
     public function show($id)
     {
         $company = Company::find($id);
-
+        $route = Route::current();
         if(!$company) {
             return response()->json([
                 'message'   => 'Record not found',
+                'route'     => $route
             ], 404);
         }
 
         return response()->json($company);
     }
-
-
 
     public function destroy($id)
     {
@@ -122,4 +124,17 @@ class CompaniesController extends Controller
             $company->delete()
         ], 204 );        
     }    
+
+    public function event($id)
+    {   
+        $company = \App\Models\Company::find( $id );
+
+        if(!$company) {
+            return response()->json([
+                'message'   => 'Record not found, ' . $id,
+            ], 404);
+        }        
+
+        event( new UserWasBanned( $company, $id ) );
+    }
 }

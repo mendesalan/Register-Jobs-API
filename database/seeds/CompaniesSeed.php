@@ -1,9 +1,17 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Faker\Generator as Faker;
 
 class CompaniesSeed extends Seeder
 {
+    public $faker;
+
+    public function __construct(Faker $faker)
+    {
+        $this->faker = $faker;
+    }
+
     /**
      * Run the database seeds.
      *
@@ -12,10 +20,11 @@ class CompaniesSeed extends Seeder
     public function run()
     {
         App\Models\Company::create([
-            'name' => str_random(10),
-            'email' => str_random(10).'@gmail.com',
-            'password' => bcrypt('secret'),
+            'name' => $this->faker->name,
+            'email' => $this->faker->email.'@gmail.com',
+            'password' => bcrypt('123456'),
+            'website' => $this->faker->company,
+            'plan' => 'monthly',
         ]);
     }
 }
-// remove 'secret' string

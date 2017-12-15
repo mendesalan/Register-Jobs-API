@@ -19,6 +19,7 @@ class Companies extends Migration
             $table->string('name', 100);
             $table->string('email', 60);
             $table->string('website')->nullable()->default(NULL);
+            $table->enum('plan', ['monthly', 'yearly'] )->nullable();
             $table->string('logo')->nullable()->default(NULL);
             $table->string('password', 64);
             $table->timestamps();

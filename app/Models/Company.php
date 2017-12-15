@@ -12,7 +12,7 @@ class Company extends Model implements AuthenticatableContract, CanResetPassword
 {
 	use Authenticatable, CanResetPassword;
 	
-    protected $fillable = ['name', 'email', 'website', 'logo', 'password'];
+    protected $fillable = ['name', 'email', 'website', 'plan','logo', 'password'];
 
     protected $hidden = ['password'];
 

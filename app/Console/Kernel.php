@@ -24,6 +24,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
+        $schedule->command('laracasts:sample')->at('11:30');
         // $schedule->command('inspire')
         //          ->hourly();
     }

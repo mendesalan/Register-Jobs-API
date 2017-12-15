@@ -57,7 +57,6 @@ class AuthController extends Controller
 		    'access_token' => $token,
 		    'token_type' => 'bearer',
 		    'expires_in' => $expiration
-		    // 'expires_in' => JWTAuth::decode()->get('exp')
 		  ]);
     }    
 
